@@ -1,0 +1,104 @@
+{
+  "best": {
+    "num_leaves": 255,
+    "min_child_samples": 3,
+    "learning_rate": 0.02,
+    "screen_r2": 0.9643090545375571,
+    "best_iter": 325,
+    "oof_r2": 0.9653705711071643,
+    "mean_iter": 303
+  },
+  "all": [
+    {
+      "num_leaves": 255,
+      "min_child_samples": 3,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9643090545375571,
+      "best_iter": 325,
+      "oof_r2": 0.9653705711071643,
+      "mean_iter": 303
+    },
+    {
+      "num_leaves": 255,
+      "min_child_samples": 5,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9642989761756718,
+      "best_iter": 337,
+      "oof_r2": 0.9653210039920739,
+      "mean_iter": 279
+    },
+    {
+      "num_leaves": 511,
+      "min_child_samples": 3,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9642240912620703,
+      "best_iter": 278,
+      "oof_r2": 0.9651656380136439,
+      "mean_iter": 272
+    },
+    {
+      "num_leaves": 511,
+      "min_child_samples": 5,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9641521827523367,
+      "best_iter": 290
+    },
+    {
+      "num_leaves": 255,
+      "min_child_samples": 5,
+      "learning_rate": 0.05,
+      "screen_r2": 0.9639663931893522,
+      "best_iter": 118
+    },
+    {
+      "num_leaves": 511,
+      "min_child_samples": 3,
+      "learning_rate": 0.05,
+      "screen_r2": 0.96390725675427,
+      "best_iter": 110
+    },
+    {
+      "num_leaves": 255,
+      "min_child_samples": 3,
+      "learning_rate": 0.05,
+      "screen_r2": 0.9638255781145872,
+      "best_iter": 112
+    },
+    {
+      "num_leaves": 511,
+      "min_child_samples": 5,
+      "learning_rate": 0.05,
+      "screen_r2": 0.9637924327887925,
+      "best_iter": 111
+    }
+  ],
+  "final_top3": [
+    {
+      "num_leaves": 255,
+      "min_child_samples": 3,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9643090545375571,
+      "best_iter": 325,
+      "oof_r2": 0.9653705711071643,
+      "mean_iter": 303
+    },
+    {
+      "num_leaves": 255,
+      "min_child_samples": 5,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9642989761756718,
+      "best_iter": 337,
+      "oof_r2": 0.9653210039920739,
+      "mean_iter": 279
+    },
+    {
+      "num_leaves": 511,
+      "min_child_samples": 3,
+      "learning_rate": 0.02,
+      "screen_r2": 0.9642240912620703,
+      "best_iter": 278,
+      "oof_r2": 0.9651656380136439,
+      "mean_iter": 272
+    }
+  ]
+}

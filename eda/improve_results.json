@@ -1,0 +1,16 @@
+{
+  "A": {
+    "mode": "A",
+    "lgb_r2": 0.9653135594575316,
+    "xgb_r2": 0.9644783874589602,
+    "tweedie_r2": null,
+    "quantile_r2": null,
+    "catboost_r2": null,
+    "blend_weights": [
+      0.76,
+      0.24
+    ],
+    "blend_r2": 0.9655929676582911,
+    "score": 96.5592967658291
+  }
+}

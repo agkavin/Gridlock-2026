@@ -1,0 +1,44 @@
+{
+  "config": {
+    "use_interactions": true,
+    "use_d49t_forward_lags": true,
+    "use_catboost": true,
+    "use_ridge_stacking": true,
+    "use_bias_correction": true,
+    "bias_correction_k": 20
+  },
+  "honest_eval": {
+    "A": {
+      "blend_r2": 0.9660068692576513,
+      "bias_r2": 0.9661381937561475,
+      "blend_weights": [
+        0.3961419338560868,
+        0.20231194960293955,
+        0.4035418590915744
+      ],
+      "lgb_r2": 0.9654502565143899,
+      "xgb_r2": 0.9645783403621738,
+      "cb_r2": 0.9651184963088665
+    },
+    "B": {
+      "blend_r2": 0.5527978727264853,
+      "n_val": 8628
+    },
+    "C": {
+      "blend_r2": 0.7549891036895385,
+      "n_val": 7872
+    }
+  },
+  "final_oof_r2": 0.9622650412092651,
+  "final_blend_weights": [
+    0.3464729749723652,
+    0.11757525049809155,
+    0.5378308943866889
+  ],
+  "submission_shape": [
+    41778,
+    2
+  ],
+  "submission_demand_mean": 0.1280609068721749,
+  "submission_demand_std": 0.1672542520284558
+}

@@ -1,0 +1,52 @@
+{
+  "config": {
+    "use_interactions": true,
+    "use_d49t_forward_lags": true,
+    "use_catboost": true,
+    "use_ridge_stacking": true,
+    "use_bias_correction": false,
+    "use_d49t_geo_features": true,
+    "seeds": [
+      42,
+      7,
+      123
+    ]
+  },
+  "mode_a": {
+    "blend_r2": 0.966343901767129,
+    "blend_weights": [
+      0.42215885007681003,
+      0.20816570353272643,
+      0.371092940076844
+    ],
+    "lgb_r2": 0.9659350684413379,
+    "xgb_r2": 0.9650378259910392,
+    "cb_r2": 0.9653978389981704
+  },
+  "mode_c": {
+    "blend_r2": 0.7560928101468516,
+    "blend_weights": [
+      0.42215885007681003,
+      0.20816570353272643,
+      0.371092940076844
+    ],
+    "lgb_r2": 0.7557935813008476,
+    "xgb_r2": 0.7625683806443838,
+    "cb_r2": 0.7458790050075768
+  },
+  "final_oof_r2": 0.9655624565413252,
+  "final_blend_weights": [
+    0.35492395758034145,
+    0.2067882930876787,
+    0.43990522775639795
+  ],
+  "submission_shape": [
+    41778,
+    2
+  ],
+  "submission_demand_mean": 0.12538553721782397,
+  "submission_demand_std": 0.16567177862534296,
+  "v1_v2_corr": 0.996217733501563,
+  "v1_v2_mean_diff": -0.0026753696543509,
+  "v1_v2_mean_abs_diff": 0.009732665149927221
+}

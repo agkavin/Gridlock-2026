@@ -1,0 +1,31 @@
+{
+  "mode_A_kfold_d48": {
+    "label": "A) KFold d48 (random)",
+    "n": 69427,
+    "lgb_r2": 0.9652462252103078,
+    "xgb_r2": 0.9643987957988664,
+    "blend_w_lgb": 0.74,
+    "blend_r2": 0.965364982867681,
+    "score": 96.53649828676811
+  },
+  "mode_B_time_holdout": {
+    "label": "B) Time holdout (slots 80-95)",
+    "n_train": 60799,
+    "n_val": 8628,
+    "lgb_r2": 0.5774039998625597,
+    "xgb_r2": 0.577084810749749,
+    "blend_w_lgb": 0.54,
+    "blend_r2": 0.5782484765642167,
+    "score": 57.824847656421674
+  },
+  "mode_C_d49t_from_d48": {
+    "label": "C) Predict d49t from d48 only",
+    "n_train": 69427,
+    "n_val": 7872,
+    "lgb_r2": 0.7570255231847594,
+    "xgb_r2": 0.7577742128864332,
+    "blend_w_lgb": 0.32,
+    "blend_r2": 0.7579743503680785,
+    "score": 75.79743503680785
+  }
+}
