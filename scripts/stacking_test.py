@@ -31,7 +31,7 @@ from improve_demand import (
 warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
-EDA = ROOT / "eda"
+OUTPUT = ROOT / "output"
 
 
 def make_cfg(**overrides):
@@ -202,7 +202,7 @@ def main():
     print(f"  Ridge α=1.0  (LGB+XGB+CB-cat+Tw+Qt) R²  : {r_all:.4f}  weights={blend_all.coef_.round(3)}")
 
     # Save
-    out = EDA / "stacking_results.json"
+    out = OUTPUT / "stacking_results.json"
     results = {
         "lgb_r2": lgb_r2, "xgb_r2": xgb_r2,
         "cb_num_r2": cb_r2_num, "cb_cat_r2": cb_r2_cat,

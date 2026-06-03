@@ -7,11 +7,12 @@ import pandas as pd
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
+OUTPUT = ROOT / "output"
 
 test = pd.read_csv(DATA / "test.csv")
-v1 = pd.read_csv(ROOT / "submission_v1.csv")
-v2 = pd.read_csv(ROOT / "submission_v2.csv")
-baseline = pd.read_csv(ROOT / "submission_baseline.csv")
+v1 = pd.read_csv(OUTPUT / "submission_v1.csv")
+v2 = pd.read_csv(OUTPUT / "submission_v2.csv")
+baseline = pd.read_csv(OUTPUT / "submission_baseline.csv")
 
 print("=" * 70)
 print("V2 SPEC CHECK")

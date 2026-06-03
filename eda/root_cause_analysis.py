@@ -14,14 +14,14 @@ import numpy as np
 import pandas as pd
 
 DATA = Path("/home/marcus/code/Gridlock/dataset")
-ART = Path("/home/marcus/code/Gridlock/eda")
-ART.mkdir(exist_ok=True)
+OUTPUT = Path("/home/marcus/code/Gridlock/output")
+OUTPUT.mkdir(exist_ok=True)
 
 
 def load_data():
     train = pd.read_csv(DATA / "train.csv")
     test = pd.read_csv(DATA / "test.csv")
-    sub = pd.read_csv(DATA / "submission.csv")
+    sub = pd.read_csv(OUTPUT / "submission.csv")
     return train, test, sub
 
 

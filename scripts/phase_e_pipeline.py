@@ -35,8 +35,8 @@ warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-EDA = ROOT / "eda"
-EDA.mkdir(exist_ok=True)
+OUTPUT = ROOT / "output"
+OUTPUT.mkdir(exist_ok=True)
 
 
 def make_phase_e_cfg():
@@ -267,8 +267,8 @@ def run_final_multi_seed(cfg, d48, d49t, test, FEATS):
     test_blend = np.clip(test_blend, 0, 1)
 
     sub = pd.DataFrame({"Index": test["Index"], "demand": test_blend})
-    sub.to_csv(ROOT / "submission_v2.csv", index=False)
-    print(f"\n  Saved submission: submission_v2.csv  ({sub.shape})", flush=True)
+    sub.to_csv(OUTPUT / "submission_v2.csv", index=False)
+    print(f"\n  Saved submission: output/submission_v2.csv  ({sub.shape})", flush=True)
 
     # Per-model OOF (averaged across seeds) for diagnostics
     print(f"\n  Per-model averaged OOF R²:", flush=True)
@@ -288,8 +288,8 @@ def run_final_multi_seed(cfg, d48, d49t, test, FEATS):
         "gain": m_imp.feature_importance(importance_type="gain"),
         "split": m_imp.feature_importance(importance_type="split"),
     }).sort_values("gain", ascending=False)
-    imp.to_csv(EDA / "feature_importance_v2.csv", index=False)
-    print(f"  Saved feature importance: eda/feature_importance_v2.csv", flush=True)
+    imp.to_csv(OUTPUT / "feature_importance_v2.csv", index=False)
+    print(f"  Saved feature importance: output/feature_importance_v2.csv", flush=True)
     print(f"  Top 15 features:", flush=True)
     for _, row in imp.head(15).iterrows():
         print(f"    {row['feature']:25s}  gain={row['gain']:>10.0f}", flush=True)
@@ -349,7 +349,7 @@ def main():
           f"min={sub['demand'].min():.4f}, max={sub['demand'].max():.4f}", flush=True)
 
     # Step 4: Compare to V1
-    v1 = pd.read_csv(ROOT / "submission_v1.csv")
+    v1 = pd.read_csv(OUTPUT / "submission_v1.csv")
     print(f"\n  V1 (current 89.97) stats: mean={v1['demand'].mean():.4f}, "
           f"std={v1['demand'].std():.4f}, min={v1['demand'].min():.4f}, "
           f"max={v1['demand'].max():.4f}", flush=True)
@@ -381,7 +381,7 @@ def main():
         "v1_v2_mean_diff": float(mean_diff),
         "v1_v2_mean_abs_diff": float(abs_diff),
     }
-    with open(EDA / "phase_e_metrics.json", "w") as f:
+    with open(OUTPUT / "phase_e_metrics.json", "w") as f:
         json.dump(summary, f, indent=2)
 
     print(f"\n{'=' * 70}", flush=True)
@@ -395,9 +395,9 @@ def main():
           f"(Score={final_oof_r2*100:.2f})", flush=True)
     print(f"  Baseline (V0) online: 87.26  |  V1 online: 89.97  |  V2 online: TBD", flush=True)
     print(f"\n  Total time: {time.time()-t_total:.1f}s", flush=True)
-    print(f"  → /home/marcus/code/Gridlock/submission_v2.csv", flush=True)
-    print(f"  → /home/marcus/code/Gridlock/eda/phase_e_metrics.json", flush=True)
-    print(f"  → /home/marcus/code/Gridlock/eda/feature_importance_v2.csv", flush=True)
+    print(f"  → output/submission_v2.csv", flush=True)
+    print(f"  → output/phase_e_metrics.json", flush=True)
+    print(f"  → output/feature_importance_v2.csv", flush=True)
 
 
 if __name__ == "__main__":

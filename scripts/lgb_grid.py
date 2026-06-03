@@ -30,7 +30,7 @@ from improve_demand import (
 warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
-EDA = ROOT / "eda"
+OUTPUT = ROOT / "output"
 
 
 def make_cfg(**overrides):
@@ -151,9 +151,9 @@ def main():
     print("=" * 70, flush=True)
 
     # Save
-    out_csv = EDA / "lgb_grid_results.csv"
+    out_csv = OUTPUT / "lgb_grid_results.csv"
     pd.DataFrame(screen_results).to_csv(out_csv, index=False)
-    out_json = EDA / "lgb_grid_best.json"
+    out_json = OUTPUT / "lgb_grid_best.json"
     with open(out_json, "w") as f:
         json.dump({"best": best, "all": screen_results, "final_top3": final_results}, f, indent=2)
     print(f"\nSaved: {out_csv.relative_to(ROOT)} and {out_json.relative_to(ROOT)}", flush=True)

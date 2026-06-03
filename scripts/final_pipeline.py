@@ -41,8 +41,8 @@ warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-EDA = ROOT / "eda"
-EDA.mkdir(exist_ok=True)
+OUTPUT = ROOT / "output"
+OUTPUT.mkdir(exist_ok=True)
 
 
 def make_final_cfg():
@@ -336,8 +336,8 @@ def train_final_and_predict(cfg, d48, d49t, test, blend_weights, blend_alpha=1.0
 
     # Save predictions
     sub = pd.DataFrame({"Index": test["Index"], "demand": test_blend})
-    sub.to_csv(ROOT / "submission.csv", index=False)
-    print(f"\n  Saved submission: submission.csv  ({sub.shape})", flush=True)
+    sub.to_csv(OUTPUT / "submission.csv", index=False)
+    print(f"\n  Saved submission: output/submission.csv  ({sub.shape})", flush=True)
 
     # Feature importance (LGB gain)
     # Train one LGB on all data for importance
@@ -350,8 +350,8 @@ def train_final_and_predict(cfg, d48, d49t, test, blend_weights, blend_alpha=1.0
         "gain": m_imp.feature_importance(importance_type="gain"),
         "split": m_imp.feature_importance(importance_type="split"),
     }).sort_values("gain", ascending=False)
-    imp.to_csv(EDA / "feature_importance.csv", index=False)
-    print(f"  Saved feature importance: eda/feature_importance.csv", flush=True)
+    imp.to_csv(OUTPUT / "feature_importance.csv", index=False)
+    print(f"  Saved feature importance: output/feature_importance.csv", flush=True)
 
     return sub, final_oof_r2, blend.coef_.tolist(), imp
 
@@ -411,7 +411,7 @@ def main():
         "submission_demand_mean": float(sub["demand"].mean()),
         "submission_demand_std": float(sub["demand"].std()),
     }
-    with open(EDA / "final_metrics.json", "w") as f:
+    with open(OUTPUT / "final_metrics.json", "w") as f:
         json.dump(summary, f, indent=2)
 
     print(f"\n{'=' * 70}", flush=True)
@@ -426,9 +426,9 @@ def main():
     print(f"  Full d48+d49t OOF R²: {final_oof_r2:.4f}", flush=True)
     print(f"  Baseline KFold (d48+d49t) R²: 0.9616  "
           f"(Δ from baseline: {final_oof_r2 - 0.9616:+.4f})", flush=True)
-    print(f"\n  → /home/marcus/code/Gridlock/submission.csv", flush=True)
-    print(f"  → eda/final_metrics.json", flush=True)
-    print(f"  → eda/feature_importance.csv", flush=True)
+    print(f"\n  → output/submission.csv", flush=True)
+    print(f"  → output/final_metrics.json", flush=True)
+    print(f"  → output/feature_importance.csv", flush=True)
 
 
 if __name__ == "__main__":

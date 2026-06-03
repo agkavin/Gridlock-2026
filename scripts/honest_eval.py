@@ -41,8 +41,8 @@ warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-EDA = ROOT / "eda"
-EDA.mkdir(exist_ok=True)
+OUTPUT = ROOT / "output"
+OUTPUT.mkdir(exist_ok=True)
 
 HOLDOUT_START = 80
 
@@ -450,7 +450,7 @@ def main():
     res_c = mode_c_d49t_from_d48(d48, d49t)
 
     # Persist
-    out = EDA / "honest_baseline.json"
+    out = OUTPUT / "honest_baseline.json"
     with open(out, "w") as f:
         json.dump(
             {"mode_A_kfold_d48": res_a, "mode_B_time_holdout": res_b,

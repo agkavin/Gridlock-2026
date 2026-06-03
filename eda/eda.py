@@ -29,9 +29,9 @@ pd.set_option("display.max_columns", 50)
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-EDA = ROOT / "eda"
-FIGS = EDA / "figures"
-EDA.mkdir(exist_ok=True)
+OUTPUT = ROOT / "output"
+FIGS = OUTPUT / "figures"
+OUTPUT.mkdir(exist_ok=True)
 FIGS.mkdir(exist_ok=True)
 
 
@@ -49,7 +49,7 @@ def section(title):
 
 
 def save_json(obj, name):
-    out = EDA / name
+    out = OUTPUT / name
     with open(out, "w") as f:
         json.dump(obj, f, indent=2, default=str)
     print(f"  -> wrote {out.relative_to(ROOT)}")

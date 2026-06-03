@@ -47,7 +47,7 @@ This single fact shaped every decision that followed.
 
 ## 3. EDA — What We Found
 
-Three rounds of EDA were run, all under `eda/`. Key findings:
+Three rounds of EDA were run, scripts in `eda/` (with figures in `output/figures/`). Key findings:
 
 ### 3.1 The 3-bucket structure dominates
 
@@ -61,7 +61,7 @@ A **10× spread** between Highway and Residential. `road_enc` (0/1/2 encoding) b
 
 ### 3.2 Demand follows a clear diurnal curve
 
-EDA figure `eda/figures/demand_by_hour.png`:
+EDA figure `output/figures/demand_by_hour.png`:
 - Trough at 19:00 (0.045)
 - Morning peak 8:00 (0.13)
 - True lunch peak 11:00–13:00 (0.13)
@@ -115,13 +115,13 @@ This is the *honest* picture that drove every improvement decision.
 ### Phase A — EDA foundation
 - `eda/eda.py`: distribution of demand, missingness, time-slot distribution, day comparison
 - `eda/eda_deepdive.py`: 7 more focused analyses (RoadType × Lanes, geohash profile, lag coverage, cold-start, per-hour curve, etc.)
-- 12 figures in `eda/figures/`
+- 12 figures in `output/figures/`
 - 18 sections of findings in `docs/analysis.md`
 
 ### Phase B — Baseline benchmark
 - Ran `predict_demand.py` (LGB + XGB 5-fold blend, 42 features) as-is
 - OOF R² = 0.9616, score 96.16
-- Saved as `submission_baseline.csv`
+- Saved as `output/submission_baseline.csv`
 - **Online score: 87.26**
 
 ### Phase C — 8 improvements, A/B tested
@@ -144,7 +144,7 @@ Each was tried in isolation on Mode A (and Mode C where relevant). We kept the o
 - All 5 kept improvements (C-3, C-4, C-5, C-6, C-8) baked in
 - 5-fold CV on d48+d49t, Ridge stack, per-geohash bias correction
 - Final OOF R² = **0.9626** (vs baseline 0.9616, +0.0010)
-- Generated `submission.csv` (V1)
+- Generated `output/submission.csv` (V1)
 - **Online score: 89.97** (+2.71 vs baseline)
 
 The OOF→online ratio was 27×. The OOF gain of +0.10 turned into +2.71 online.
@@ -172,7 +172,7 @@ The day-shift tax is ~0.21 R² (21 points). Online sits between Mode A and Mode 
 **Final OOF (Phase E):** Mode A=0.9663 (+0.0002), Mode C=0.7561 (+0.0011), full multi-seed OOF=0.9656.
 **V1 ↔ V2 corr:** 0.9962, mean abs diff 0.0097 — V2 is a refined V1, not a different model.
 
-Generated `submission_v2.csv`. Pre-upload sanity check (`eda/check_v2.py`): shape, columns, Index, range, NaN, [0,1] — all clean. Submitted.
+Generated `output/submission_v2.csv`. Pre-upload sanity check (`eda/check_v2.py`): shape, columns, Index, range, NaN, [0,1] — all clean. Submitted.
 
 **Online score: 90.73** (+0.76 vs V1; +3.47 vs baseline).
 
@@ -295,19 +295,19 @@ Gridlock/
 ├── predict_demand.py             # baseline (untouched, 87.26 online)
 ├── improve_demand.py             # main module: Config, assemble_features, models
 ├── pyproject.toml, uv.lock       # uv project
-├── submission.csv                # ACTIVE: V2 (90.73)
-├── submission_v1.csv             # backup: V1 (89.97)
-├── submission_v2.csv             # copy of V2
-├── submission_baseline.csv       # baseline (87.26)
 ├── docs/
+│   ├── Task.md                   # original problem spec
 │   ├── plan.md                   # full plan, Phase A→E
 │   ├── status.md                 # running project state
 │   ├── analysis.md               # EDA findings (18 sections)
 │   └── Progress.md               # this file
-├── eda/
-│   ├── eda.py, eda_deepdive.py   # EDA scripts
-│   ├── root_cause_analysis.py    # OOF vs online gap analysis
-│   ├── check_v2.py               # V2 sanity check
+├── output/
+│   ├── submission.csv            # ACTIVE: V2 (90.73)
+│   ├── submission_v1.csv         # backup: V1 (89.97)
+│   ├── submission_v2.csv         # raw V2 output
+│   ├── submission_baseline.csv   # baseline (87.26)
+│   ├── feature_importance.csv    # V1 LGB gain
+│   ├── feature_importance_v2.csv # V2 LGB gain
 │   ├── honest_baseline.json      # C-1 honest 3-mode baseline
 │   ├── improve_results.json      # C-1 with improvements
 │   ├── ab_test_results.json      # C-2..C-4 A/B tests
@@ -315,9 +315,12 @@ Gridlock/
 │   ├── lgb_grid_*.json,csv       # C-6 hyperparam grid
 │   ├── final_metrics.json        # V1 final metrics
 │   ├── phase_e_metrics.json      # V2 final metrics
-│   ├── feature_importance.csv    # V1 LGB gain
-│   ├── feature_importance_v2.csv # V2 LGB gain
+│   ├── phase_e_run.log           # Phase E training log
 │   └── figures/                  # 12 PNGs
+├── eda/                          # EDA scripts only
+│   ├── eda.py, eda_deepdive.py
+│   ├── root_cause_analysis.py
+│   └── check_v2.py
 ├── scripts/
 │   ├── honest_eval.py            # C-1: 3-mode evaluator
 │   ├── ab_test.py                # C-2..C-4 A/B
@@ -325,7 +328,7 @@ Gridlock/
 │   ├── lgb_grid.py               # C-6 hyperparam grid
 │   ├── final_pipeline.py         # Phase D: V1 pipeline
 │   └── phase_e_pipeline.py       # Phase E: V2 pipeline (multi-seed + d49t features)
-└── dataset/
+└── dataset/                      # not in repo (Kaggle data)
     ├── train.csv                 # 77,299 × 11
     ├── test.csv                  # 41,778 × 10
     └── sample_submission.csv     # 5 × 2
@@ -354,5 +357,5 @@ The biggest unexplored lever is **more d49t features** (the same insight that E-
 ## Status: paused at 90.73 online.
 
 The journey: baseline 87.26 → V1 89.97 → V2 90.73 (+3.47 total).
-Files: `submission.csv` is V2 (active), `submission_v1.csv` and `submission_v2.csv` kept as backups.
-Pipeline: `scripts/phase_e_pipeline.py` is the canonical script to reproduce V2.
+Files: `output/submission.csv` is V2 (active), `output/submission_v1.csv` and `output/submission_v2.csv` kept as backups.
+Pipeline: `scripts/phase_e_pipeline.py` is the canonical script to reproduce V2 (writes to `output/`).

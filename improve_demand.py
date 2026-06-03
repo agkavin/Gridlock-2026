@@ -31,8 +31,8 @@ warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-EDA = ROOT / "eda"
-EDA.mkdir(exist_ok=True)
+OUTPUT = ROOT / "output"
+OUTPUT.mkdir(exist_ok=True)
 
 
 # =================================================================
@@ -772,7 +772,7 @@ def main():
             print(f"  After bias correction: {res['bias_correction_r2']:.4f}  (Score={res['bias_correction_r2']*100:.2f})")
         all_results[mode] = res
 
-    out = EDA / "improve_results.json"
+    out = OUTPUT / "improve_results.json"
     with open(out, "w") as f:
         json.dump(all_results, f, indent=2)
     print(f"\nSaved: {out.relative_to(ROOT)}")

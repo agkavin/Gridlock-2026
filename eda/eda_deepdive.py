@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
 DATA = ROOT / "dataset"
-FIGS = ROOT / "eda" / "figures"
+FIGS = ROOT / "output" / "figures"
 FIGS.mkdir(parents=True, exist_ok=True)
 
 

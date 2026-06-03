@@ -22,7 +22,7 @@ from improve_demand import (
 warnings.filterwarnings("ignore")
 
 ROOT = Path("/home/marcus/code/Gridlock")
-EDA = ROOT / "eda"
+OUTPUT = ROOT / "output"
 
 
 def run_mode_a(cfg):
@@ -94,7 +94,7 @@ def main():
         results.append({"name": name, "blend_r2": res["blend_r2"], "delta": delta,
                         "lgb_r2": res["lgb_r2"], "xgb_r2": res["xgb_r2"]})
 
-    out = EDA / "ab_test_results.json"
+    out = OUTPUT / "ab_test_results.json"
     with open(out, "w") as f:
         json.dump({"ref_r2": ref_r2, "tests": results}, f, indent=2)
     print(f"\nSaved: {out.relative_to(ROOT)}")

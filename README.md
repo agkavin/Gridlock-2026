@@ -19,15 +19,15 @@ uv run python -c "import pandas, lightgbm, xgboost, catboost, sklearn"
 
 # Reproduce V2 (active submission, online 90.73)
 uv run python scripts/phase_e_pipeline.py
-# → submission_v2.csv (~19 min)
+# → output/submission_v2.csv (~19 min)
 
 # Reproduce V1 (online 89.97)
 uv run python scripts/final_pipeline.py
-# → submission.csv (will overwrite V2 — back up first)
+# → output/submission.csv (will overwrite V2 — back up first)
 
 # Reproduce baseline (untouched)
 uv run python predict_demand.py
-# → submission_baseline.csv
+# → output/submission_baseline.csv
 ```
 
 ## Repository structure
@@ -35,20 +35,20 @@ uv run python predict_demand.py
 ```
 Gridlock/
 ├── README.md                     # this file
-├── Progress.md                   # full project journey: baseline → V2 (90.73)
-├── Task.md                       # original problem spec
-├── pyproject.toml, uv.lock       # uv project (Python 3.13.5)
 ├── .gitignore
+├── pyproject.toml, uv.lock       # uv project (Python 3.13.5)
 │
 ├── predict_demand.py             # baseline (untouched, 87.26 online)
 ├── improve_demand.py             # main module: Config, feature assembly, models
 │
-├── submission.csv                # ACTIVE: V2 (90.73)
-├── submission_v1.csv             # backup: V1 (89.97)
-├── submission_v2.csv             # copy of V2
-├── submission_baseline.csv       # baseline (87.26)
+├── docs/                         # all markdown documentation
+│   ├── Task.md                   # original problem spec
+│   ├── Progress.md               # full project journey: baseline → V2 (90.73)
+│   ├── plan.md                   # full plan, Phase A → E
+│   ├── status.md                 # running project state
+│   └── analysis.md               # 18 sections of EDA findings
 │
-├── scripts/                      # pipeline stages (run in order)
+├── scripts/                      # pipeline stages
 │   ├── honest_eval.py            # 3-mode honest evaluator (C-1)
 │   ├── ab_test.py                # A/B tests for C-2..C-4
 │   ├── stacking_test.py          # C-5 / C-7 stacking experiments
@@ -56,18 +56,29 @@ Gridlock/
 │   ├── final_pipeline.py         # Phase D: V1 pipeline
 │   └── phase_e_pipeline.py       # Phase E: V2 pipeline (active)
 │
-├── eda/                          # EDA scripts + outputs
+├── eda/                          # EDA scripts only
 │   ├── eda.py                    # main EDA
 │   ├── eda_deepdive.py           # 7 deep-dive analyses
 │   ├── root_cause_analysis.py    # OOF vs online gap analysis
-│   ├── check_v2.py               # V2 sanity check
-│   ├── *.json, *.csv             # saved metrics & feature importance
-│   └── figures/                  # 12 PNGs
+│   └── check_v2.py               # V2 sanity check
 │
-└── docs/                         # project documentation
-    ├── plan.md                   # full plan, Phase A → E
-    ├── status.md                 # running project state
-    └── analysis.md               # 18 sections of EDA findings
+└── output/                       # all generated outputs
+    ├── submission.csv            # ACTIVE: V2 (90.73)
+    ├── submission_v1.csv         # backup: V1 (89.97)
+    ├── submission_v2.csv         # raw V2 (also at submission.csv)
+    ├── submission_baseline.csv   # baseline (87.26)
+    ├── feature_importance.csv    # V1 LGB gain
+    ├── feature_importance_v2.csv # V2 LGB gain
+    ├── honest_baseline.json      # C-1 3-mode baseline
+    ├── improve_results.json
+    ├── ab_test_results.json
+    ├── stacking_results.json
+    ├── lgb_grid_best.json
+    ├── lgb_grid_results.csv
+    ├── final_metrics.json        # V1 metrics
+    ├── phase_e_metrics.json      # V2 metrics
+    ├── phase_e_run.log           # Phase E training log
+    └── figures/                  # 12 EDA PNGs
 ```
 
 ## Dataset
